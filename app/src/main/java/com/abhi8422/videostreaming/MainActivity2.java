@@ -6,15 +6,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 
 import android.net.wifi.WifiInfo;
@@ -22,6 +25,7 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +37,7 @@ import android.view.View;
 import android.widget.Button;
 
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +49,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static android.content.DialogInterface.BUTTON_NEGATIVE;
 import static android.content.DialogInterface.BUTTON_NEUTRAL;
 import static android.content.DialogInterface.BUTTON_POSITIVE;
 
@@ -59,10 +65,9 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
     ConstraintLayout layout;
     private ConnectivityReceiver receiver;
     String searchID,wifiName;
-    int position=-1;
+    boolean expandCheck1=true,expandCheck2=true;
     CameraAdapter adapter;
 
-    private static final String TAG = "MainActivity2";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,13 +107,49 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
             dialogBuilder.setView(dialogView);
             AlertDialog dialog=dialogBuilder.create();
 
-            dialog.setButton(BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+            TextView txtSeemore1=dialogView.findViewById(R.id.txtSeemore);
+            TextView txtSeemore2=dialogView.findViewById(R.id.txtSeemore2);
+            TextView txtQuestion1=dialogView.findViewById(R.id.txtQuestion);
+            TextView txtQuestion2=dialogView.findViewById(R.id.txtQuestion2);
+            ImageView imgClose=dialogView.findViewById(R.id.imgClose);
+            ImageView downArrow1=dialogView.findViewById(R.id.downarrow1);
+            ImageView downArrow2=dialogView.findViewById(R.id.downarrow2);
+
+            txtQuestion1.setText(Html.fromHtml("<b>"+getString(R.string.question1)+"</b>",0));
+            txtQuestion2.setText(Html.fromHtml("<b>"+getString(R.string.question2)+"</b>",0));
+
+
+
+            downArrow1.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
+                public void onClick(View v) {
+                    if (expandCheck1){
+                        downArrow1.setImageResource(R.drawable.ic_arrow_drop_up);
+                        dialogView.findViewById(R.id.linear).setVisibility(View.VISIBLE);
+                        expandCheck1=false;
+                    }else {
+                        downArrow1.setImageResource(R.drawable.ic_arrow_drop_down);
+                        dialogView.findViewById(R.id.linear).setVisibility(View.GONE);
+                        expandCheck1=true;
+                    }
                 }
             });
+            downArrow2.setOnClickListener(v1 ->{
+                if (expandCheck2){
+                    downArrow2.setImageResource(R.drawable.ic_arrow_drop_up);
+                    dialogView.findViewById(R.id.linear2).setVisibility(View.VISIBLE);
+                    expandCheck2=false;
+                }else {
+                    downArrow2.setImageResource(R.drawable.ic_arrow_drop_down);
+                    dialogView.findViewById(R.id.linear2).setVisibility(View.GONE);
+                    expandCheck2=true;
+                }
+            } );
+            imgClose.setOnClickListener(v1 -> {
+                dialog.dismiss();
+            });
             dialog.show();
+
         });
         btnPlay.setOnClickListener( v ->  {
             String url=id.getText().toString();
@@ -120,7 +161,7 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
                     wifiName= wifiInfo.getSSID().replace("\"","");
                     if(!wifiName.equals("<unknown ssid>")){
                         txtWifiName.setText(wifiName);
-                        saveUrlString(url,wifiName);
+                        saveUrlString(url.trim(),wifiName);
                         adapter.onDataAdded();
                     }else {
                         txtWifiName.setText("No Wifi Connection");
@@ -182,6 +223,11 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
             editor.apply();
             countEditor.apply();
         }
+        else {
+            startActivity(new Intent(this, MainActivity.class)
+                    .putExtra("URL", urlString.trim()));
+            finish();
+        }
     }
 
     public void deleteUrlString(String cameraInfo){
@@ -232,10 +278,17 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
 
     @Override
     public void CameraClick(String cameraUrl) {
-        id.setText(cameraUrl.trim());
-        startActivity(new Intent(this, MainActivity.class)
-                .putExtra("URL", cameraUrl.trim()));
-        finish();
+        WifiManager wifiMgr = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
+        wifiName= wifiInfo.getSSID().replace("\"","");
+        if(!wifiName.equals("<unknown ssid>")) {
+            id.setText(cameraUrl.trim());
+            startActivity(new Intent(this, MainActivity.class)
+                    .putExtra("URL", cameraUrl.trim()));
+            finish();
+        }else {
+            Toast.makeText(this, "Please connect to Wi-Fi", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -243,13 +296,15 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
         deleteUrlString(cameraInfo);
     }
 
-    /*
-    @Override
+
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
-    }*/
+    }
+*/
+
 
     /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -272,5 +327,4 @@ interface CameraClickListener {
  interface OnDataSetChangeListener {
     void onDataRemoved(int position);
     void onDataAdded();
-
 }

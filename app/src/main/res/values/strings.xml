@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">EyeCGas Stream</string>
+    <string name="help_string">
+        The rtsp URL should be entered as rtsp://EyeCGas Camera IP Address>/video.sdp
+        \n
+        \nWhere to find the EyeCGas IP Address?
+        \n
+        \nIn EyeCGas camera navigate to Menu > Settings > System Info > Network > WiFi HotSpot > IP
+    </string>
+    <string name="help_string1">
+        How to enter rtsp URL?
+        \n
+        For EyeCGas IP = 192.168.1.2 then enter rtsp://192.168.1.5/video.sdp <br/>
+    </string>
+</resources>

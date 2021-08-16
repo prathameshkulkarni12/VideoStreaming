@@ -12,4 +12,50 @@
         * For EyeCGas IP = 192.168.1.2 then enter rtsp://192.168.1.5/video.sdp
     </string>
     <string name="alert_dialog_two_buttons_title">Test</string>
+    <string name="streamQ1">
+        Stream video is not showing?
+    </string>
+    <string name="streamAns1">
+        * If you do not see video stream, then please check the rtsp URL and the WiFi connection name.
+      \nUse the android navigation button to go back to the previous screen.
+    </string>
+    <string name="wifiQ1">
+        How to connect to Camera using WiFi?
+    </string>
+    <string name="wifiAns1">
+        Click on @ to view and select the EyeCGas Camera WiFi network.
+      \nThe EyeCGas camera WiFi name will be same as SSID.
+      \nTo find EyeCGas Camera SSID, navigate to Menu > Settings > System Info > Network > WiFi HotSpot > SSID:
+      \nWhen connection is done the EyeCGas Camera WiFi name will be displayed, else No WiFi connection will be displayed.
+      \nUse refresh icon button to refresh and re-check WiFi connection.
+    </string>
+    <string name="wifiQ2">
+        How to view stream video?
+    </string>
+    <string name="wifiAns2">
+        After EyeCGas Camera WiFi connection is established, enter the rtsp URL and click on View button.
+    </string>
+    <string name="wifiQ3">
+        How to create camera shortcut?
+    </string>
+    <string name="wifiAns3">
+        Use @ to create shortcut. Maximum 5 shortcuts can be saved.
+      \nThe shortcut displays the EyeCGas Camera WiFI name and the rtsp URL.
+      \nUse delete icon to delete the shortcut.
+    </string>
 </resources>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

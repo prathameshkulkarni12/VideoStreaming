@@ -12,25 +12,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="View"
+        android:text="view"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnShortcut"
         app:layout_constraintTop_toBottomOf="@+id/textField" />
 
-    <!--<EditText
-
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:ems="10"
-        android:hint="Enter RTSP URL"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="140dp" />-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textField"
@@ -38,19 +26,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:hint="Enter RTSP URL"
-        app:endIconMode="custom"
+        android:maxHeight="50dp"
         app:endIconDrawable="@drawable/ic_question_circle"
+        app:endIconMode="custom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:maxHeight="50dp"
         app:layout_constraintTop_toBottomOf="@+id/txtwifiname">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            />
+            android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,4 +76,15 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnShortcut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create shortcut &amp; view"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/button2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

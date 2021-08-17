@@ -81,7 +81,7 @@
         android:id="@+id/btnShortcut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create shortcut &amp; view"
+        android:text="Create Shortcut &amp; view"
         android:textSize="12dp"
         app:layout_constraintEnd_toStartOf="@+id/button2"
         app:layout_constraintHorizontal_bias="0.5"

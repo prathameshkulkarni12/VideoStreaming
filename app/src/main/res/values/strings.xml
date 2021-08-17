@@ -27,7 +27,6 @@
       \nThe EyeCGas camera WiFi name will be same as SSID.
       \nTo find EyeCGas Camera SSID, navigate to Menu > Settings > System Info > Network > WiFi HotSpot > SSID:
       \nWhen connection is done the EyeCGas Camera WiFi name will be displayed, else No WiFi connection will be displayed.
-      \nUse refresh icon button to refresh and re-check WiFi connection.
     </string>
     <string name="wifiQ2">
         How to view stream video?
@@ -40,7 +39,7 @@
     </string>
     <string name="wifiAns3">
         Use @ to create shortcut. Maximum 5 shortcuts can be saved.
-      \nThe shortcut displays the EyeCGas Camera WiFI name and the rtsp URL.
+      \nThe shortcut displays the EyeCGas Camera WiFi name and the rtsp URL.
       \nUse delete icon to delete the shortcut.
     </string>
 </resources>

@@ -1,7 +1,6 @@
 package com.abhi8422.videostreaming;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -11,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import androidx.appcompat.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -59,8 +59,8 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
     ConstraintLayout layout;
     private ConnectivityReceiver receiver;
     String wifiName;
-    boolean expandCheck1=true,expandCheck2=true,wifiExpandCheck1=true,
-            wifiExpandCheck2=true,wifiExpandCheck3=true;
+    boolean wifiCheck,expandCheck1=true,expandCheck2=true,wifiExpandCheck1=true,
+            wifiExpandCheck2=true,wifiExpandCheck3=true,visibility=true;
     CameraAdapter adapter;
     AlertDialog dialog,netWorkDialog;
     @Override
@@ -109,56 +109,19 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
 
         btnView.setOnClickListener(v ->  {
             String url=id.getText().toString();
-            AlertDialog dialog=new AlertDialog.Builder(this)
-                    .setCancelable(true)
-                    .setTitle("Stream View Options")
-                    .setPositiveButton("View only", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-
-                            if (url.isEmpty()){
-                                Toast.makeText(MainActivity2.this, "Please Enter URL", Toast.LENGTH_SHORT).show();
-                            }else {
-                                WifiManager wifiMgr = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-                                WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
-                                wifiName= wifiInfo.getSSID().replace("\"","");
-                                if(!wifiName.equals("<unknown ssid>")){
-                                    txtWifiName.setText(wifiName);
-                                    startActivity(new Intent(MainActivity2.this, MainActivity.class)
-                                            .putExtra("URL",url.trim()));
-                                    finish();
-                                }else {
-                                    txtWifiName.setText("No Wifi Connection");
-                                    Toast.makeText(MainActivity2.this, "Please connect to Wi-Fi", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
-                    })
-                    .setNegativeButton("Create shortcut & view", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            if (url.isEmpty()){
-                                Toast.makeText(MainActivity2.this, "Please Enter URL", Toast.LENGTH_SHORT).show();
-                            }else {
-                                WifiManager wifiMgr = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-                                WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
-                                wifiName= wifiInfo.getSSID().replace("\"","");
-                                if(!wifiName.equals("<unknown ssid>")){
-                                    txtWifiName.setText(wifiName);
-                                    saveUrlString(url.trim(),wifiName);
-                                    adapter.onDataAdded();
-                                }else {
-                                    txtWifiName.setText("No Wifi Connection");
-                                    Toast.makeText(MainActivity2.this, "Please connect to Wi-Fi", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
-                    }).create();
-
-            dialog.show();
-
+            if (url.isEmpty()){
+                Toast.makeText(MainActivity2.this, "Please Enter URL", Toast.LENGTH_SHORT).show();
+            }else {
+                if(!wifiName.replace("\"","").equals("<unknown ssid>")){
+                    txtWifiName.setText(wifiName);
+                    startActivity(new Intent(MainActivity2.this, MainActivity.class)
+                            .putExtra("URL",url.trim()));
+                    finish();
+                }else {
+                    txtWifiName.setText("No Wifi Connection");
+                    Toast.makeText(MainActivity2.this, "Please connect to Wi-Fi", Toast.LENGTH_SHORT).show();
+                }
+            }
         } );
 
         btnShortcutView.setOnClickListener(v -> {
@@ -166,10 +129,10 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
             if (url.isEmpty()){
                 Toast.makeText(MainActivity2.this, "Please Enter URL", Toast.LENGTH_SHORT).show();
             }else {
-                WifiManager wifiMgr = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+                /*WifiManager wifiMgr = (WifiManager) getSystemService(Context.WIFI_SERVICE);
                 WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
-                wifiName= wifiInfo.getSSID().replace("\"","");
-                if(!wifiName.equals("<unknown ssid>")){
+                wifiName= wifiInfo.getSSID().replace("\"","");*/
+                if(!wifiName.replace("\"","").equals("<unknown ssid>")){
                     txtWifiName.setText(wifiName);
                     saveUrlString(url.trim(),wifiName);
                     adapter.onDataAdded();
@@ -185,10 +148,11 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
     @Override
     protected void onResume() {
         super.onResume();
-        WifiManager wifiMgr = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
+        visibility=true;
+       WifiManager wifiMgr = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+       WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
         wifiName= wifiInfo.getSSID().replace("\"","");
-        if(wifiName.equals("<unknown ssid>")){
+        if(wifiName.replace("\"","").equals("<unknown ssid>")){
             txtWifiName.setText("No WiFi Connection");
         }else {
             txtWifiName.setText(wifiName);
@@ -288,13 +252,11 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
 
     @Override
     public void CameraClick(String cameraUrl) {
-        WifiManager wifiMgr = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
-        wifiName= wifiInfo.getSSID().replace("\"","");
+
         String[] wifiNameS = cameraUrl.split("WN");
-        if(wifiName.equals("<unknown ssid>")) {
+        if(wifiName.replace("\"","").equals("<unknown ssid>")) {
             Toast.makeText(this, "Please connect to WiFi", Toast.LENGTH_SHORT).show();
-        }else if(!wifiName.equals(wifiNameS[1])) {
+        }else if(!wifiName.replace("\"","").equals(wifiNameS[1])) {
             Toast.makeText(this, "WiFi is not connected to camera", Toast.LENGTH_SHORT).show();
         }else {
             id.setText(wifiNameS[0].trim());
@@ -390,17 +352,18 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
         spannableString.setSpan(span, spannableString.toString().indexOf("@"),  spannableString.toString().indexOf("@")+1,
                 Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
 
-        d2.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+        d2.setBounds(0, 0, d2.getIntrinsicWidth(), d2.getIntrinsicHeight());
         ImageSpan span2 = new ImageSpan(d2, ImageSpan.ALIGN_BOTTOM);
         spannableString2.setSpan(span2, spannableString2.toString().indexOf("@"),  spannableString2.toString().indexOf("@")+1,
                 Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
 
-        ImageView downArrow1,downArrow2,downArrow3;
+        ImageView downArrow1,downArrow2,downArrow3,imgHelp;
         TextView ans1,ans2,ans3;
 
          downArrow1=dialogView.findViewById(R.id.downarrow1);
          downArrow2=dialogView.findViewById(R.id.downarrow2);
          downArrow3=dialogView.findViewById(R.id.downarrow3);
+         imgHelp=dialogView.findViewById(R.id.imgHelp);
 
          ans1=dialogView.findViewById(R.id.txtWifAns1);
          ans2=dialogView.findViewById(R.id.txtWifAns2);
@@ -415,10 +378,12 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
                 if (wifiExpandCheck1){
                     downArrow1.setImageResource(R.drawable.ic_arrow_drop_up);
                     ans1.setVisibility(View.VISIBLE);
+                    imgHelp.setVisibility(View.VISIBLE);
                     wifiExpandCheck1=false;
                 }else {
                     downArrow1.setImageResource(R.drawable.ic_arrow_drop_down);
                     ans1.setVisibility(View.GONE);
+                    imgHelp.setVisibility(View.GONE);
                     wifiExpandCheck1=true;
                 }
             }
@@ -446,20 +411,37 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
                 wifiExpandCheck3=true;
             }
         } );
-
         dialog.show();
-
     }
 
     @Override
     public void showNetworkAlert() {
-     netWorkDialog.setMessage("Wifi is not connected");
-     netWorkDialog.show();
+        if(visibility){
+            netWorkDialog.setMessage("Wifi is not connected");
+            netWorkDialog.show();
+        }
+            wifiCheck=false;
+            txtWifiName.setText("No WiFi Connection");
     }
 
     @Override
-    public void dismissNetworkAlert() {
+    public void dismissNetworkAlert(String wifiSSID) {
         netWorkDialog.dismiss();
+        wifiCheck=true;
+        wifiName=wifiSSID;
+        txtWifiName.setText(wifiSSID.replace("\"","").trim());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        visibility=true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        visibility=false;
     }
 }
 
@@ -475,6 +457,6 @@ interface CameraClickListener {
 
 interface NetworkChangeListener{
     void showNetworkAlert();
-    void dismissNetworkAlert();
+    void dismissNetworkAlert(String wifiSSID);
 }
 

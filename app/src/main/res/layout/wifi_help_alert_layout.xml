@@ -92,10 +92,16 @@
                         android:id="@+id/txtWifAns1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:textColor="#000000"
                         android:visibility="gone"
                         android:textSize="16sp" />
+                    <ImageView
+                        android:id="@+id/imgHelp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="290dp"
+                        android:src="@drawable/helppicture3"
+                        android:visibility="gone"
+                        />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -163,7 +169,6 @@
                         android:textColor="#000000"
                         android:visibility="gone"
                         android:textSize="16sp" />
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

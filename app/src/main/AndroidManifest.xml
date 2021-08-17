@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.abhi8422.videostreaming">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -31,7 +32,8 @@
 
         <receiver
             android:name=".ConnectivityReceiver"
-            android:enabled="true">
+            android:enabled="true"
+            tools:ignore="Instantiatable">
             <intent-filter>
                 <action android:name="android.net.wifi.STATE_CHANGE" />
             </intent-filter>

@@ -2,7 +2,6 @@ package com.abhi8422.videostreaming;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import androidx.core.app.ActivityCompat;
@@ -17,15 +16,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ImageSpan;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,6 +32,7 @@ import android.widget.Button;
 
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -104,7 +101,6 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
 
         netWorkDialog=new AlertDialog.Builder(this)
                 .setTitle("Network Information")
-                .setCancelable(false)
                 .create();
 
         btnView.setOnClickListener(v ->  {
@@ -118,7 +114,7 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
                             .putExtra("URL",url.trim()));
                     finish();
                 }else {
-                    txtWifiName.setText("No Wifi Connection");
+                    txtWifiName.setText("No WiFi Connection");
                     Toast.makeText(MainActivity2.this, "Please connect to Wi-Fi", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -137,7 +133,7 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
                     saveUrlString(url.trim(),wifiName);
                     adapter.onDataAdded();
                 }else {
-                    txtWifiName.setText("No Wifi Connection");
+                    txtWifiName.setText("No WiFi Connection");
                     Toast.makeText(MainActivity2.this, "Please connect to Wi-Fi", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -342,7 +338,7 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
         View dialogView = inflater.inflate(R.layout.wifi_help_alert_layout, null);
         dialogBuilder.setView(dialogView);
         dialog=dialogBuilder.create();
-        SpannableString spannableString = new SpannableString(getString(R.string.wifiAns1));
+       /* SpannableString spannableString = new SpannableString(getString(R.string.wifiAns1));
         SpannableString spannableString2 = new SpannableString(getString(R.string.wifiAns3));
         Drawable d = AppCompatResources.getDrawable(this,R.drawable.wifiicon);
         Drawable d2 = AppCompatResources.getDrawable(this,R.drawable.shortcutbtn);
@@ -356,21 +352,17 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
         ImageSpan span2 = new ImageSpan(d2, ImageSpan.ALIGN_BOTTOM);
         spannableString2.setSpan(span2, spannableString2.toString().indexOf("@"),  spannableString2.toString().indexOf("@")+1,
                 Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-
-        ImageView downArrow1,downArrow2,downArrow3,imgHelp;
-        TextView ans1,ans2,ans3;
+*/
+        ImageView downArrow1,downArrow2,downArrow3;
+        LinearLayout ans1,ans2,ans3;
 
          downArrow1=dialogView.findViewById(R.id.downarrow1);
          downArrow2=dialogView.findViewById(R.id.downarrow2);
          downArrow3=dialogView.findViewById(R.id.downarrow3);
-         imgHelp=dialogView.findViewById(R.id.imgHelp);
 
-         ans1=dialogView.findViewById(R.id.txtWifAns1);
-         ans2=dialogView.findViewById(R.id.txtWifAns2);
-         ans3=dialogView.findViewById(R.id.txtWifAns3);
-
-         ans1.setText(spannableString);
-         ans3.setText(spannableString2);
+         ans1=dialogView.findViewById(R.id.linearAns1);
+         ans2=dialogView.findViewById(R.id.linearAns2);
+         ans3=dialogView.findViewById(R.id.linearAns3);
 
         downArrow1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -378,12 +370,10 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
                 if (wifiExpandCheck1){
                     downArrow1.setImageResource(R.drawable.ic_arrow_drop_up);
                     ans1.setVisibility(View.VISIBLE);
-                    imgHelp.setVisibility(View.VISIBLE);
                     wifiExpandCheck1=false;
                 }else {
                     downArrow1.setImageResource(R.drawable.ic_arrow_drop_down);
                     ans1.setVisibility(View.GONE);
-                    imgHelp.setVisibility(View.GONE);
                     wifiExpandCheck1=true;
                 }
             }

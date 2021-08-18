@@ -22,25 +22,28 @@
     <string name="wifiQ1">
         How to connect to Camera using WiFi?
     </string>
-    <string name="wifiAns1">
-        Click on @ to view and select the EyeCGas Camera WiFi network.
-      \nThe EyeCGas camera WiFi name will be same as SSID.
-      \nTo find EyeCGas Camera SSID, navigate to Menu > Settings > System Info > Network > WiFi HotSpot > SSID:
-      \nWhen connection is done the EyeCGas Camera WiFi name will be displayed, else No WiFi connection will be displayed.
+    <string name="wifiQ11">
+        1. Click on wifi icon to view and select the EyeCGas Camera WiFi network.
+        \n The EyeCGas camera WiFi name will be same as SSID.</string>
+    <string name="wifiQ12">2.To find EyeCGas Camera SSID, navigate to Menu > Settings > System Info > Network > WiFi HotSpot > SSID:</string>
+    <string name="wifiQ1End">
+      3.When connection is done the EyeCGas Camera WiFi name will be displayed, else No WiFi Connection will be displayed.
     </string>
     <string name="wifiQ2">
         How to view stream video?
     </string>
     <string name="wifiAns2">
-        After EyeCGas Camera WiFi connection is established, enter the rtsp URL and click on View button.
+        After EyeCGas Camera WiFi connection is established,
+        \n1. enter the rtsp URL
+        \n2. click on View button.
     </string>
     <string name="wifiQ3">
         How to create camera shortcut?
     </string>
     <string name="wifiAns3">
-        Use @ to create shortcut. Maximum 5 shortcuts can be saved.
-      \nThe shortcut displays the EyeCGas Camera WiFi name and the rtsp URL.
-      \nUse delete icon to delete the shortcut.
+        1. Use Create Shortcut &amp; View button to create shortcut. Maximum 5 shortcuts can be saved.
+      \n2. The shortcut displays the EyeCGas Camera WiFi name and the rtsp URL.
+      \n3.Use delete icon to delete the shortcut.
     </string>
 </resources>
 

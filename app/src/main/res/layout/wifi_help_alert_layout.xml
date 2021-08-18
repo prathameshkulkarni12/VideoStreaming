@@ -87,21 +87,60 @@
                         android:layout_height="3dp"
                         android:background="#dddd"
                         />
-
-                    <TextView
-                        android:id="@+id/txtWifAns1"
+                    <LinearLayout
+                        android:id="@+id/linearAns1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="#000000"
-                        android:visibility="gone"
-                        android:textSize="16sp" />
-                    <ImageView
-                        android:id="@+id/imgHelp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="290dp"
-                        android:src="@drawable/helppicture3"
-                        android:visibility="gone"
-                        />
+                        android:orientation="vertical"
+                        android:visibility="gone">
+                        <TextView
+                            android:id="@+id/txtQ1AnsPoint1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000000"
+                            android:text="@string/wifiQ11"
+                            android:textSize="16sp" />
+                        <ImageView
+                            android:id="@+id/imgHelp1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:src="@drawable/wifiansimg1"
+                            />
+
+                        <TextView
+                            android:id="@+id/txtQ1AnsPoint2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000000"
+                            android:text="@string/wifiQ12"
+                            android:textSize="16sp" />
+                        <ImageView
+                            android:id="@+id/imgHelp2"
+                            android:layout_width="300dp"
+                            android:layout_height="200dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/wifiansimg2"
+                            />
+
+                        <TextView
+                            android:id="@+id/txtQ1AnsPoint3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000000"
+                            android:text="@string/wifiQ1End"
+                            android:textSize="16sp" />
+                        <ImageView
+                            android:id="@+id/imgHelp3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:src="@drawable/wifiansimg3"
+                            />
+
+                    </LinearLayout>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -161,14 +200,27 @@
                         android:layout_height="3dp"
                         android:background="#dddd"
                         />
-                    <TextView
-                        android:id="@+id/txtWifAns2"
+                    <LinearLayout
+                        android:id="@+id/linearAns2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/wifiAns2"
-                        android:textColor="#000000"
                         android:visibility="gone"
-                        android:textSize="16sp" />
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/txtQ2AnsPoint1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/wifiAns2"
+                            android:textColor="#000000"
+                            android:textSize="16sp" />
+                        <ImageView
+                            android:id="@+id/imgHelp4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="200dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/wifiansimg4"/>
+                    </LinearLayout>
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -227,14 +279,34 @@
                         android:layout_height="3dp"
                         android:background="#dddd"
                         />
-                    <TextView
-                        android:id="@+id/txtWifAns3"
+                    <LinearLayout
+                        android:id="@+id/linearAns3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/wifiAns3"
-                        android:textColor="#000000"
-                        android:visibility="gone"
-                        android:textSize="16sp" />
+                        android:orientation="vertical"
+                        android:visibility="gone">
+                        <TextView
+                            android:id="@+id/txtQ3AnsPoint1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/wifiAns3"
+                            android:textColor="#000000"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/imgHelp5"
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:src="@drawable/wifiansimg5"/>
+
+                        <ImageView
+                            android:id="@+id/imgHelp6"
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:src="@drawable/wifiansimg6"/>
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

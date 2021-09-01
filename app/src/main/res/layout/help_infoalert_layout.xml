@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     android:orientation="vertical">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -22,70 +21,71 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="10dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="#daf5bc"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="67dp"
+                android:backgroundTint="@color/green">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@string/camera"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:elevation="8dp"
-                app:cardCornerRadius="6dp"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="#daf5bc"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
                 tools:layout_editor_absoluteX="1dp"
                 tools:layout_editor_absoluteY="67dp">
                 <LinearLayout
                      android:layout_width="match_parent"
                      android:layout_height="match_parent"
                      android:orientation="vertical"
-                    android:padding="8dp"
                     android:background="@color/light_green">
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/txtQuestion"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/txtQuestion"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:ellipsize="end"
-                            android:maxLines="2"
-                            android:text="@string/question1"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-                        <ImageView
-                            android:id="@+id/downarrow1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_arrow_drop_down"
-                            app:tint="@color/black"
-                            />
-
-                        <TextView
-                            android:id="@+id/txtSeemore"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="See more"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:visibility="gone" />
-
-                    </LinearLayout>
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:padding="5dp"
+                        android:text="@string/question1"
+                        style="@style/FontStyle"
+                        app:drawableEndCompat="@drawable/ic_arrow_drop_down" />
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="3dp"
-                        android:background="#dddd"
+                        android:layout_height="2dp"
+                        android:background="#5D000000"
                         />
                     <LinearLayout
                         android:id="@+id/linear"
@@ -99,8 +99,9 @@
                             android:layout_height="wrap_content"
                             android:text="@string/ans1"
                             android:textColor="#000000"
-                            android:textSize="16sp" />
-
+                            android:textSize="16sp"
+                            android:padding="5dp"
+                            />
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="300dp"
@@ -113,21 +114,17 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:elevation="8dp"
-                app:cardCornerRadius="6dp"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="#daf5bc"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
                 tools:layout_editor_absoluteX="1dp"
                 tools:layout_editor_absoluteY="67dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding="8dp"
                     android:background="@color/light_green">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/txtQuestion2"
@@ -135,42 +132,24 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ellipsize="end"
+                            android:padding="5dp"
                             android:maxLines="2"
                             android:text="@string/question2"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-                        <ImageView
-                            android:id="@+id/downarrow2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_arrow_drop_down"
-                            app:tint="@color/black"
-                            />
+                            style="@style/FontStyle"
+                            app:drawableEndCompat="@drawable/ic_arrow_drop_down"/>
 
-                        <TextView
-                            android:id="@+id/txtSeemore2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="See more"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:visibility="gone" />
-
-                    </LinearLayout>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="3dp"
-                        android:background="#dddd"
+                        android:background="#5D000000"
                         />
                     <LinearLayout
                         android:id="@+id/linear2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        android:padding="5dp">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -188,6 +167,312 @@
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="#daf5bc"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="67dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/light_green">
+
+                        <TextView
+                            android:id="@+id/txtQuestion5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:padding="5dp"
+                            android:maxLines="2"
+                            android:text="@string/wifiQ3"
+                            style="@style/FontStyle"
+                            app:drawableEndCompat="@drawable/ic_arrow_drop_down"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="#5D000000"
+                        />
+                    <LinearLayout
+                        android:id="@+id/linearAns3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:padding="5dp">
+                        <TextView
+                            android:id="@+id/txtQ3AnsPoint1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/wifiAns3"
+                            android:textColor="#000000"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/imgHelp5"
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:src="@drawable/wifiansimg5"/>
+
+                        <ImageView
+                            android:id="@+id/imgHelp6"
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:src="@drawable/wifiansimg6"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="#daf5bc"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="67dp"
+                android:backgroundTint="@color/green">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="Wifi"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="#daf5bc"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="67dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/light_green">
+                        <TextView
+                            android:id="@+id/txtQuestion3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:padding="5dp"
+                            android:text="@string/wifiQ1"
+                            style="@style/FontStyle"
+                            app:drawableEndCompat="@drawable/ic_arrow_drop_down"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="#5D000000"
+                        />
+                    <LinearLayout
+                        android:id="@+id/linearAns1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:visibility="gone">
+                        <TextView
+                            android:id="@+id/txtQ1AnsPoint1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000000"
+                            android:text="@string/wifiQ11"
+                            android:textSize="16sp" />
+                        <ImageView
+                            android:id="@+id/imgHelp1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:src="@drawable/wifiansimg1"
+                            />
+
+                        <TextView
+                            android:id="@+id/txtQ1AnsPoint2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000000"
+                            android:text="@string/wifiQ12"
+                            android:textSize="16sp" />
+                        <ImageView
+                            android:id="@+id/imgHelp2"
+                            android:layout_width="300dp"
+                            android:layout_height="200dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/wifiansimg2"
+                            />
+
+                        <TextView
+                            android:id="@+id/txtQ1AnsPoint3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000000"
+                            android:text="@string/wifiQ1End"
+                            android:textSize="16sp" />
+                        <ImageView
+                            android:id="@+id/imgHelp3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:src="@drawable/wifiansimg3"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="#daf5bc"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="67dp"
+                android:backgroundTint="@color/green">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="Stream Video"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="#daf5bc"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="67dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/light_green">
+                        <TextView
+                            android:id="@+id/txtQuestion4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:padding="5dp"
+                            android:text="@string/wifiQ2"
+                            style="@style/FontStyle"
+                            app:drawableEndCompat="@drawable/ic_arrow_drop_down"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="#5D000000"
+                        />
+                    <LinearLayout
+                        android:id="@+id/linearAns2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:padding="5dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/txtQ2AnsPoint1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/wifiAns2"
+                            android:textColor="#000000"
+                            android:textSize="16sp" />
+                        <ImageView
+                            android:id="@+id/imgHelp4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="200dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/wifiansimg4"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="#daf5bc"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="67dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/light_green">
+                        <TextView
+                            android:id="@+id/txtQuestion6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:padding="5dp"
+                            android:text="@string/streamQ1"
+                            style="@style/FontStyle"
+                            app:drawableEndCompat="@drawable/ic_arrow_drop_down"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="#5D000000"
+                        />
+
+                    <TextView
+                        android:id="@+id/txtStreamAns1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/streamAns1"
+                        android:textColor="#000000"
+                        android:visibility="gone"
+                        android:padding="5dp"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
         </LinearLayout>
+
     </ScrollView>
+
+
 </LinearLayout>

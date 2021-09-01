@@ -24,12 +24,9 @@
                 android:id="@+id/txtCamera"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textAlignment="center"
+                style="@style/FontStyle"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:textColor="@color/black"
                 android:layout_weight="1"/>
             <ImageView
                 android:id="@+id/imgDel"
@@ -43,11 +40,9 @@
             android:id="@+id/txtCameraURL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:textAlignment="center"
+            style="@style/FontStyle"
             android:maxLines="2"
             android:ellipsize="end"
-            android:textColor="@color/black"/>
+            />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

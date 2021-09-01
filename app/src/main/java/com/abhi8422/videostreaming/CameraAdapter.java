@@ -58,8 +58,7 @@ public class CameraAdapter  extends RecyclerView.Adapter<CameraAdapter.CameraVie
             name=itemView.findViewById(R.id.txtCamera);
             url=itemView.findViewById(R.id.txtCameraURL);
             imgDel=itemView.findViewById(R.id.imgDel);
-            itemView.setOnClickListener(v -> {
-
+            itemView.setOnClickListener( v -> {
                 listener.CameraClick(cameraNames.get(getAdapterPosition()));
             });
             imgDel.setOnClickListener(v -> {

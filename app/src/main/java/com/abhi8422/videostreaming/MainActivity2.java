@@ -1,10 +1,13 @@
 package com.abhi8422.videostreaming;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,13 +18,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.text.Html;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,10 +35,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -56,10 +60,13 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
     ConstraintLayout layout;
     private ConnectivityReceiver receiver;
     String wifiName;
-    boolean wifiCheck,expandCheck1=true,expandCheck2=true,wifiExpandCheck1=true,
-            wifiExpandCheck2=true,wifiExpandCheck3=true,visibility=true;
+    boolean wifiCheck,expandCheck1=true,expandCheck2=true,expandCheck3=true,
+            expandCheck4=true,expandCheck5=true,expandCheck6=true,visibility=true;
     CameraAdapter adapter;
     AlertDialog dialog,netWorkDialog;
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle Toggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +90,11 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
         textInputLayout=findViewById(R.id.textField);
         txtWifiName=findViewById(R.id.txtwifiname);
         btnWifi=findViewById(R.id.btnWifi);
+        drawerLayout=findViewById(R.id.drawerLayout);
+
+        configureToolbar();
+        configureNavDrawer();
+
         btnWifi.setOnClickListener(v -> {
             startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
         });
@@ -125,9 +137,6 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
             if (url.isEmpty()){
                 Toast.makeText(MainActivity2.this, "Please Enter URL", Toast.LENGTH_SHORT).show();
             }else {
-                /*WifiManager wifiMgr = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-                WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
-                wifiName= wifiInfo.getSSID().replace("\"","");*/
                 if(!wifiName.replace("\"","").equals("<unknown ssid>")){
                     txtWifiName.setText(wifiName);
                     saveUrlString(url.trim(),wifiName);
@@ -141,12 +150,48 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
         });
     }
 
+    private void configureToolbar() {
+        Toggle = new ActionBarDrawerToggle(this,
+                drawerLayout,R.string.Open, R.string.Close);
+        drawerLayout.addDrawerListener(Toggle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Toggle.syncState();
+    }
+
+    private void configureNavDrawer() {
+        drawerLayout = findViewById(R.id.drawerLayout);
+        NavigationView navigationView = findViewById(R.id.navigationView);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+             int menuId = item.getItemId();
+                switch (menuId) {
+                    case R.id.wifi:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                        break;
+                    case R.id.help:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        showHelpAlert();
+                        break;
+                    case R.id.exit:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        finish();
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
         visibility=true;
-       WifiManager wifiMgr = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-       WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
+        WifiManager wifiMgr = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
         wifiName= wifiInfo.getSSID().replace("\"","");
         if(wifiName.replace("\"","").equals("<unknown ssid>")){
             txtWifiName.setText("No WiFi Connection");
@@ -181,15 +226,7 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
                         }).create();
                 dialog.show();
             }
-            /*
-                cnt = 1;
-                editor.putString(cameraInfo, cameraInfo);
-                countEditor.putInt("counter", cnt);
-            } else {
-                cnt = cnt+1;
-                editor.putString(cameraInfo, cameraInfo);
-                countEditor.putInt("counter", cnt);
-            }*/
+
             editor.apply();
             countEditor.apply();
         }
@@ -226,15 +263,9 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
                 break;
             }
         }
-/*
-        for (int i=0;i<=5;i++){
-            String sUrl=preferences.getString(String.valueOf(i),"");
-            if(!sUrl.isEmpty()) {
-                strings.add(preferences.getString(String.valueOf(i), ""));
-            }
-        }*/
         return strings;
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -243,7 +274,6 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //this.unregisterReceiver(receiver);
     }
 
     @Override
@@ -271,20 +301,14 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
       dialog.dismiss();
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        if (Toggle.onOptionsItemSelected(item)) {
+            return true;
+        }
         switch (item.getItemId()) {
             case R.id.help:
-                showWifiHelpAlert();
+                showHelpAlert();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -292,116 +316,105 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
     }
 
     public void showHelpAlert(){
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this,R.style.DialogTheme);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this,R.style.Theme_AppCompat_Light_NoActionBar_FullScreen);
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.help_infoalert_layout, null);
         dialogBuilder.setView(dialogView);
         dialog=dialogBuilder.create();
+        ScrollView sv=dialogView.findViewById(R.id.scrollView);
+        sv.scrollTo(0,300);
 
-        ImageView downArrow1=dialogView.findViewById(R.id.downarrow1);
-        ImageView downArrow2=dialogView.findViewById(R.id.downarrow2);
+        TextView text1=dialogView.findViewById(R.id.txtQuestion);
+        TextView text2=dialogView.findViewById(R.id.txtQuestion2);
+        TextView text3=dialogView.findViewById(R.id.txtQuestion5);
+        TextView text4=dialogView.findViewById(R.id.txtQuestion3);
+        TextView text5=dialogView.findViewById(R.id.txtQuestion4);
+        TextView text6=dialogView.findViewById(R.id.txtQuestion6);
 
-
-        downArrow1.setOnClickListener(new View.OnClickListener() {
+        text1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (expandCheck1){
-                    downArrow1.setImageResource(R.drawable.ic_arrow_drop_up);
+                    text1.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_arrow_drop_up,0);
                     dialogView.findViewById(R.id.linear).setVisibility(View.VISIBLE);
                     expandCheck1=false;
                 }else {
-                    downArrow1.setImageResource(R.drawable.ic_arrow_drop_down);
+                    text1.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_arrow_drop_down,0);
                     dialogView.findViewById(R.id.linear).setVisibility(View.GONE);
                     expandCheck1=true;
                 }
             }
         });
-        downArrow2.setOnClickListener(v1 ->{
+        text2.setOnClickListener(v1 ->{
             if (expandCheck2){
-                downArrow2.setImageResource(R.drawable.ic_arrow_drop_up);
+                text2.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_arrow_drop_up,0);
                 dialogView.findViewById(R.id.linear2).setVisibility(View.VISIBLE);
                 expandCheck2=false;
             }else {
-                downArrow2.setImageResource(R.drawable.ic_arrow_drop_down);
+                text2.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_arrow_drop_down,0);
                 dialogView.findViewById(R.id.linear2).setVisibility(View.GONE);
                 expandCheck2=true;
             }
         } );
-
-        dialog.show();
-
-    }
-
-    public void showWifiHelpAlert(){
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this,R.style.DialogTheme);
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.wifi_help_alert_layout, null);
-        dialogBuilder.setView(dialogView);
-        dialog=dialogBuilder.create();
-       /* SpannableString spannableString = new SpannableString(getString(R.string.wifiAns1));
-        SpannableString spannableString2 = new SpannableString(getString(R.string.wifiAns3));
-        Drawable d = AppCompatResources.getDrawable(this,R.drawable.wifiicon);
-        Drawable d2 = AppCompatResources.getDrawable(this,R.drawable.shortcutbtn);
-
-        d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
-        ImageSpan span = new ImageSpan(d, ImageSpan.ALIGN_BOTTOM);
-        spannableString.setSpan(span, spannableString.toString().indexOf("@"),  spannableString.toString().indexOf("@")+1,
-                Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-
-        d2.setBounds(0, 0, d2.getIntrinsicWidth(), d2.getIntrinsicHeight());
-        ImageSpan span2 = new ImageSpan(d2, ImageSpan.ALIGN_BOTTOM);
-        spannableString2.setSpan(span2, spannableString2.toString().indexOf("@"),  spannableString2.toString().indexOf("@")+1,
-                Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-*/
-        ImageView downArrow1,downArrow2,downArrow3;
-        LinearLayout ans1,ans2,ans3;
-
-         downArrow1=dialogView.findViewById(R.id.downarrow1);
-         downArrow2=dialogView.findViewById(R.id.downarrow2);
-         downArrow3=dialogView.findViewById(R.id.downarrow3);
-
-         ans1=dialogView.findViewById(R.id.linearAns1);
-         ans2=dialogView.findViewById(R.id.linearAns2);
-         ans3=dialogView.findViewById(R.id.linearAns3);
-
-        downArrow1.setOnClickListener(new View.OnClickListener() {
+        text3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (wifiExpandCheck1){
-                    downArrow1.setImageResource(R.drawable.ic_arrow_drop_up);
-                    ans1.setVisibility(View.VISIBLE);
-                    wifiExpandCheck1=false;
+                if (expandCheck5){
+                    text3.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_arrow_drop_up,0);
+                    dialogView.findViewById(R.id.linearAns3).setVisibility(View.VISIBLE);
+                    expandCheck5=false;
                 }else {
-                    downArrow1.setImageResource(R.drawable.ic_arrow_drop_down);
-                    ans1.setVisibility(View.GONE);
-                    wifiExpandCheck1=true;
+                    text3.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_arrow_drop_down,0);
+                    dialogView.findViewById(R.id.linearAns3).setVisibility(View.GONE);
+                    expandCheck5=true;
                 }
             }
         });
-        downArrow2.setOnClickListener(v1 ->{
-            if (wifiExpandCheck2){
-                downArrow2.setImageResource(R.drawable.ic_arrow_drop_up);
-                ans2.setVisibility(View.VISIBLE);
-                wifiExpandCheck2=false;
-            }else {
-                downArrow2.setImageResource(R.drawable.ic_arrow_drop_down);
-                ans2.setVisibility(View.GONE);
-                wifiExpandCheck2=true;
+        text4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (expandCheck3){
+                    text4.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_arrow_drop_up,0);
+                    dialogView.findViewById(R.id.linearAns1).setVisibility(View.VISIBLE);
+                    expandCheck3=false;
+                }else {
+                    text4.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_arrow_drop_down,0);
+                    dialogView.findViewById(R.id.linearAns1).setVisibility(View.GONE);
+                    expandCheck3=true;
+                }
             }
-        } );
+        });
+        text5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (expandCheck4){
+                    text5.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_arrow_drop_up,0);
+                    dialogView.findViewById(R.id.linearAns2).setVisibility(View.VISIBLE);
+                    expandCheck4=false;
+                }else {
+                    text5.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_arrow_drop_down,0);
+                    dialogView.findViewById(R.id.linearAns2).setVisibility(View.GONE);
+                    expandCheck4=true;
+                }
+            }
+        });
+        text6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (expandCheck6){
+                    text6.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_arrow_drop_up,0);
+                    dialogView.findViewById(R.id.txtStreamAns1).setVisibility(View.VISIBLE);
+                    expandCheck6=false;
+                }else {
+                    text6.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_arrow_drop_down,0);
+                    dialogView.findViewById(R.id.txtStreamAns1).setVisibility(View.GONE);
+                    expandCheck6=true;
+                }
+            }
+        });
 
-        downArrow3.setOnClickListener(v1 ->{
-            if (wifiExpandCheck3){
-                downArrow3.setImageResource(R.drawable.ic_arrow_drop_up);
-                ans3.setVisibility(View.VISIBLE);
-                wifiExpandCheck3=false;
-            }else {
-                downArrow3.setImageResource(R.drawable.ic_arrow_drop_down);
-                ans3.setVisibility(View.GONE);
-                wifiExpandCheck3=true;
-            }
-        } );
         dialog.show();
+
     }
 
     @Override

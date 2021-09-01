@@ -3,13 +3,13 @@
     <string name="question1">
         Where to find the EyeCGas IP Address?</string>
     <string name="ans1">
-        * The rtsp URL should be entered as rtsp://EyeCGas Camera IP Address>/video.sdp
-      \n* In EyeCGas camera navigate to Menu > Settings > System Info > Network > WiFi HotSpot > IP
+        1. The rtsp URL should be entered as rtsp://\"EyeCGas Camera IP Address\"/video.sdp
+      \n2. In EyeCGas camera navigate to Menu > Settings > System Info > Network > WiFi HotSpot > IP
     </string>
     <string name="question2">
         How to enter rtsp URL?</string>
     <string name="ans2">
-        * For EyeCGas IP = 192.168.1.2 then enter rtsp://192.168.1.5/video.sdp
+        * For EyeCGas IP = 192.168.1.5 then enter rtsp://192.168.1.5/video.sdp
     </string>
     <string name="alert_dialog_two_buttons_title">Test</string>
     <string name="streamQ1">
@@ -45,6 +45,20 @@
       \n2. The shortcut displays the EyeCGas Camera WiFi name and the rtsp URL.
       \n3.Use delete icon to delete the shortcut.
     </string>
+    <string name="Open">open</string>
+    <string name="Close">close</string>
+    <string name="title_activity_main3">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="camera">Camera</string>
 </resources>
 
 

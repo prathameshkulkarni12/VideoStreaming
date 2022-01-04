@@ -82,7 +82,9 @@ public class MainActivity2 extends AppCompatActivity  implements CameraClickList
 
         ActivityCompat.requestPermissions(MainActivity2.this,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,}, 101);
         cameraRecycler =findViewById(R.id.recyclerView);
         id=findViewById(R.id.edtId);
         btnView =findViewById(R.id.button2);

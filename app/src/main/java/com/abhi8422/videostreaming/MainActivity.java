@@ -1,34 +1,20 @@
 package com.abhi8422.videostreaming;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.os.Environment;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.material.navigation.NavigationView;
-
 import org.videolan.libvlc.LibVLC;
 import org.videolan.libvlc.Media;
 import org.videolan.libvlc.MediaPlayer;
-import org.videolan.libvlc.interfaces.ILibVLC;
 import org.videolan.libvlc.util.VLCVideoLayout;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     VLCVideoLayout videoLayout;
     AlertDialog dialog;
     ImageButton btnClose;
+    File file;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +35,17 @@ public class MainActivity extends AppCompatActivity {
             onBackPressed();
         });
         rtspUrl=getIntent().getStringExtra("URL");
-        libVLC=new LibVLC(this);
+        final ArrayList<String> args = new ArrayList<>();
+        args.add("-vvv");
+        libVLC=new LibVLC(this,args);
         mediaPlayer =new MediaPlayer(libVLC);
         videoLayout=findViewById(R.id.videoLayout);
+        file = new File(Environment.getExternalStorageDirectory()+"/sample.mp4");
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -60,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         Media media=new Media(libVLC, Uri.parse(rtspUrl));
         media.setHWDecoderEnabled(true,false);
         media.addOption(":network-caching=500");
+        media.addOption(":sout=#duplicate{dst=file{dst=" + file.getAbsolutePath() + "},dst=display}");
         mediaPlayer.setMedia(media);
         media.release();
         mediaPlayer.play();
@@ -91,6 +87,3 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-
-
-
